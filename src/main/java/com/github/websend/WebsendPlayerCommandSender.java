@@ -5,34 +5,31 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
-import org.bukkit.SoundCategory;
-import org.bukkit.Statistic;
+
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
+import org.bukkit.entity.memory.MemoryKey;
 import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MainHand;
 import org.bukkit.inventory.Merchant;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
-import org.bukkit.FluidCollisionMode;
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.PistonMoveReaction;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.RayTraceResult;
 
-public abstract class WebsendPlayerCommandSender implements Player {
+public class WebsendPlayerCommandSender implements Player {
 
     /* This class allows tapping into command output from plugins
      * if the output is sent through the commandsender.
@@ -56,6 +53,11 @@ public abstract class WebsendPlayerCommandSender implements Player {
     }
 
     @Override
+    public void openBook(ItemStack itemStack) {
+        this.baseObject.openBook(itemStack);
+    }
+
+    @Override
     public String getLocale() {
         return this.baseObject.getLocale();
     }
@@ -67,7 +69,7 @@ public abstract class WebsendPlayerCommandSender implements Player {
 
     @Override
     public AdvancementProgress getAdvancementProgress(Advancement advancement) {
-        return this.baseObject.getAdvancementProgress(advancement);
+        return baseObject.getAdvancementProgress(advancement);
     }
 
     @Override
@@ -265,8 +267,6 @@ public abstract class WebsendPlayerCommandSender implements Player {
         baseObject.sendBlockChange(param0, param1, param2);
     }
 
-
-
     @Override
     public boolean sendChunkChange(org.bukkit.Location param0, int param1, int param2, int param3, byte[] param4) {
         return baseObject.sendChunkChange(param0, param1, param2, param3, param4);
@@ -380,6 +380,16 @@ public abstract class WebsendPlayerCommandSender implements Player {
     @Override
     public void setTotalExperience(int param0) {
         baseObject.setTotalExperience(param0);
+    }
+
+    @Override
+    public void sendExperienceChange(float v) {
+        baseObject.sendExperienceChange(v);
+    }
+
+    @Override
+    public void sendExperienceChange(float v, int i) {
+        baseObject.sendExperienceChange(v, i);
     }
 
     @Override
@@ -843,6 +853,11 @@ public abstract class WebsendPlayerCommandSender implements Player {
     }
 
     @Override
+    public void setRotation(float v, float v1) {
+        baseObject.setRotation(v, v1);
+    }
+
+    @Override
     public boolean teleport(org.bukkit.Location param0) {
         return baseObject.teleport(param0);
     }
@@ -1025,6 +1040,16 @@ public abstract class WebsendPlayerCommandSender implements Player {
     @Override
     public void setHealth(double param0) {
         baseObject.setHealth(param0);
+    }
+
+    @Override
+    public double getAbsorptionAmount() {
+        return baseObject.getAbsorptionAmount();
+    }
+
+    @Override
+    public void setAbsorptionAmount(double v) {
+        baseObject.setAbsorptionAmount(v);
     }
 
     @Override
@@ -1278,6 +1303,11 @@ public abstract class WebsendPlayerCommandSender implements Player {
     }
 
     @Override
+    public void sendSignChange(Location location, String[] strings, DyeColor dyeColor) throws IllegalArgumentException {
+        baseObject.sendSignChange(location, strings, dyeColor);
+    }
+
+    @Override
     public Entity getSpectatorTarget() {
         return baseObject.getSpectatorTarget();
     }
@@ -1418,6 +1448,21 @@ public abstract class WebsendPlayerCommandSender implements Player {
     }
 
     @Override
+    public void attack(Entity entity) {
+        baseObject.attack(entity);
+    }
+
+    @Override
+    public void swingMainHand() {
+        baseObject.swingMainHand();
+    }
+
+    @Override
+    public void swingOffHand() {
+        baseObject.swingOffHand();
+    }
+
+    @Override
     public void setCollidable(boolean bln) {
         baseObject.setCollidable(bln);
     }
@@ -1425,6 +1470,16 @@ public abstract class WebsendPlayerCommandSender implements Player {
     @Override
     public boolean isCollidable() {
         return baseObject.isCollidable();
+    }
+
+    @Override
+    public <T> T getMemory(MemoryKey<T> memoryKey) {
+        return baseObject.getMemory(memoryKey);
+    }
+
+    @Override
+    public <T> void setMemory(MemoryKey<T> memoryKey, T t) {
+        baseObject.setMemory(memoryKey, t);
     }
 
     @Override
@@ -1654,6 +1709,11 @@ public abstract class WebsendPlayerCommandSender implements Player {
     }
 
     @Override
+    public Pose getPose() {
+        return baseObject.getPose();
+    }
+
+    @Override
     public int getClientViewDistance() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -1671,5 +1731,10 @@ public abstract class WebsendPlayerCommandSender implements Player {
     @Override
     public Location getBedLocation() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public PersistentDataContainer getPersistentDataContainer() {
+        return baseObject.getPersistentDataContainer();
     }
 }

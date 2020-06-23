@@ -14,8 +14,10 @@ import java.util.logging.Level;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import org.bukkit.Bukkit;
@@ -67,53 +69,7 @@ public class PacketParser {
                         @Override
                         public Boolean call() {
                             
-                            return Bukkit.dispatchCommand(new WebsendPlayerCommandSender(player, targetPlugin) {
-                                @Override
-                                public void sendSignChange(Location lctn, String[] strings, DyeColor dc) throws IllegalArgumentException {
-                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                                }
-
-                                @Override
-                                public void openBook(ItemStack is) {
-                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                                }
-
-                                @Override
-                                public <T> T getMemory(MemoryKey<T> mk) {
-                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                                }
-
-                                @Override
-                                public <T> void setMemory(MemoryKey<T> mk, T t) {
-                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                                }
-
-                                @Override
-                                public void setRotation(float f, float f1) {
-                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                                }
-
-                                @Override
-                                public Pose getPose() {
-                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                                }
-
-                                @Override
-                                public PersistentDataContainer getPersistentDataContainer() {
-                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                                }
-
-                                @Override
-                                public double getAbsorptionAmount() {
-                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                                }
-
-                                @Override
-                                public void setAbsorptionAmount(double d) {
-                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                                }
-
-                            }, command);
+                            return Bukkit.dispatchCommand(new WebsendPlayerCommandSender(player, targetPlugin), command);
                         }
                     }).get();
                 }else{
