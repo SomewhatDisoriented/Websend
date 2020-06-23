@@ -3,8 +3,18 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.websend</groupId>
   <artifactId>Websend</artifactId>
-  <version>3.0-SNAPSHOT</version>
+  <version>4.2</version>
   <build>
+    <resources>
+      <resource>
+        <targetPath>.</targetPath>
+        <filtering>true</filtering>
+        <directory>${basedir}/src/main/resources/</directory>
+        <includes>
+          <include>plugin.yml</include>
+        </includes>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
@@ -17,28 +27,40 @@
             </goals>
           </execution>
         </executions>
-        <configuration />
       </plugin>
     </plugins>
   </build>
   <dependencies>
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>hamcrest-core</artifactId>
+          <groupId>org.hamcrest</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
       <groupId>org.bukkit</groupId>
       <artifactId>craftbukkit</artifactId>
-      <version>1.14.4-R0.1-SNAPSHOT</version>
-      <scope>provided</scope>
+      <version>1.15.2-R0.1-SNAPSHOT</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/lib/craftbukkit-1.15.2-R0.1-SNAPSHOT.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>minecraft-server</artifactId>
-      <version>1.14.4-SNAPSHOT</version>
-      <scope>provided</scope>
+      <version>1.15.2-SNAPSHOT</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/lib/spigot-api-1.15.2-R0.1-SNAPSHOT.jar</systemPath>
     </dependency>
   </dependencies>
   <properties>
-    <mainClass>project.Main.class</mainClass>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 </project>
